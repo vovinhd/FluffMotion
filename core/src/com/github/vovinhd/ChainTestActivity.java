@@ -9,11 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -154,7 +150,7 @@ public class ChainTestActivity extends ScreenAdapter {
             Link link = new Link(parent, child);
             link.length = rand.nextInt(100) + 50;
             link.angle = rand.nextFloat() * 2 * (float) Math.PI;
-            link.speed = (rand.nextFloat() * (float) Math.PI / 2) - ((float) Math.PI /4);
+            link.speed = (rand.nextFloat() * (float) Math.PI) - ((float) Math.PI / 2);
             return link;
 
         }

@@ -3,14 +3,14 @@ package com.github.vovinhd.GameState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import sun.java2d.windows.GDIBlitLoops;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.Random;
 
 /**
  * Created by vovin on 08/08/2015.
  */
-public class Chain {
+public class Chain extends Actor {
     Random rand = new Random(); 
     Vector2 rootPos = new Vector2();
     Ball root;
@@ -59,7 +59,7 @@ public class Chain {
         return ball;
     }
 
-    void act(float delta) {
+    public void act(float delta) {
         root.act(delta);
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="16">
  <tileset firstgid="1" name="DesertExampleMapTiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <tile id="0">
@@ -75,7 +75,17 @@
  </tileset>
  <layer name="Tile Layer 1" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKIRZgZiTiDmohHmRjJfBIiFkLAoCebg0otsPogth4RJ8Rcuvcjmy6CFnSwJ5uPSi2w+rcN/1PxR80ey+ZSUP8SYT0n5Q4z5lJQ/gyH8B7P5xNQvlLqTUP1CCR7I+kUQLeyoiYWBGABYaBhZ
+   eJxjZGBgYKIRZgZiTiDmohHmHjV/xJgvAsRCSFiUTHFc5oPYckiYXHFc5sswoOYNWTLFh2v8jpqP3/zR9D+843fUfOzmCzKgpmNqYmEgBgBHBRlF
   </data>
  </layer>
+ <objectgroup name="Collision">
+  <object id="7" x="73.4545" y="233.636" width="140.455" height="76.4545"/>
+  <object id="8" x="73.8182" y="490.091" width="139.818" height="75.8182"/>
+  <object id="9" x="265.727" y="490" width="140.364" height="75.9091"/>
+  <object id="10" x="458" y="489.727" width="139.818" height="76.1818"/>
+  <object id="11" x="457.818" y="233.909" width="140.091" height="76.1818"/>
+  <object id="12" x="266.091" y="233.818" width="140" height="76.2727"/>
+  <object id="14" x="73.3333" y="310.667" width="5.33333" height="177.333"/>
+  <object id="15" x="214.667" y="232" width="50.6667" height="9.33333"/>
+ </objectgroup>
 </map>
