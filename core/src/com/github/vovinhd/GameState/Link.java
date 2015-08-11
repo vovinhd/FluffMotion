@@ -7,16 +7,25 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Created by vovin on 08/08/2015.
  */
 public class Link extends Actor{
-    Ball parent;
-    Ball child;
-    float angle;
-    float speed;
-    int length;
+    public Ball parent;
+    public Ball child;
+    public float angle;
+    public float speed;
+    public int length;
     float springConstant;
 
     public Link(Ball parent, Ball child) {
         this.parent = parent;
         this.child = child;
+        parent.setDown(this);
+        child.setUp(this);
+    }
+
+    void swapParentChild() {
+        Ball temp = parent;
+        parent = child;
+        child = temp;
+        angle -= Math.PI;
     }
 
     @Override
@@ -26,7 +35,7 @@ public class Link extends Actor{
         Vector2 newPosChild = new Vector2();
         newPosChild.x = parent.position.x + length * (float) Math.cos(angle);
         newPosChild.y = parent.position.y + length * (float) Math.sin(angle);
-        child.position = newPosChild;
+        child.setPosition(newPosChild);
         child.act(delta);
     }
 }

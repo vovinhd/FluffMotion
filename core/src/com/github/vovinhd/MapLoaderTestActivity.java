@@ -3,9 +3,6 @@ package com.github.vovinhd;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapProperties;
@@ -13,7 +10,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created by vovin on 08/08/2015.
@@ -27,11 +23,9 @@ public class MapLoaderTestActivity extends InputAdapter implements Screen {
     OrthographicCamera camera;
     int mapPixelWidth;
     int mapPixelHeight;
-    private int tilePixelWidth;
-    private int tilePixelHeight;
     private int mapWidth;
     private int mapHeight;
-
+    private Vector2 touchDown = new Vector2();
 
     @Override
     public void show() {
@@ -44,8 +38,8 @@ public class MapLoaderTestActivity extends InputAdapter implements Screen {
 
         mapWidth = prop.get("width", Integer.class);
         mapHeight = prop.get("height", Integer.class);
-        tilePixelWidth = prop.get("tilewidth", Integer.class);
-        tilePixelHeight = prop.get("tileheight", Integer.class);
+        int tilePixelWidth = prop.get("tilewidth", Integer.class);
+        int tilePixelHeight = prop.get("tileheight", Integer.class);
 
         renderer = new OrthogonalTiledMapRenderer(map, MAPSCALEFACTOR);
 
@@ -70,8 +64,6 @@ public class MapLoaderTestActivity extends InputAdapter implements Screen {
     public void resize(int width, int height) {
           camera.setToOrtho(false, width * MAPSCALEFACTOR * CAMERAZOOMFACTOR, height * MAPSCALEFACTOR * CAMERAZOOMFACTOR);
     }
-
-    private Vector2 touchDown =new Vector2();
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {

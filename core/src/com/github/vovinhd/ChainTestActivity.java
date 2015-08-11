@@ -9,6 +9,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.vovinhd.GameState.Ball;
+import com.github.vovinhd.GameState.Chain;
+import com.github.vovinhd.GameState.Link;
 
 import java.util.Random;
 
@@ -21,12 +27,18 @@ public class ChainTestActivity extends ScreenAdapter {
     SpriteBatch batch;
     Camera camera;
 
+
+    Box2DDebugRenderer debugRenderer;
+    World world = new World(new Vector2(0, 0), true);
+
+
     int width;
     int height;
 
     Random rand = new Random();
     Chain chain;
     Ball root;
+    private Stage stage;
 
     @Override
     public void show() {
@@ -35,16 +47,16 @@ public class ChainTestActivity extends ScreenAdapter {
         renderer = new ShapeRenderer();
         batch = new SpriteBatch();
         camera = new OrthographicCamera(width, height);
+        debugRenderer = new Box2DDebugRenderer();
 
-        root = new Ball();
-        root.position = new Vector2(width/2, height/2);
-        root.radius = 75;
-        root.color = Color.BLACK;
-        chain = new Chain(root);
-        chain.addBall();
-        chain.addBall();
-        chain.addBall();
-        chain.addBall();
+        root = new Ball(new Vector2(100, 100), Color.BLACK, world);
+        stage = new Stage();
+        chain = new Chain(root, world, stage);
+
+        chain.addRandomBall();
+        chain.addRandomBall();
+        chain.addRandomBall();
+        chain.addRandomBall();
     }
 
     @Override
@@ -62,20 +74,22 @@ public class ChainTestActivity extends ScreenAdapter {
         //draw actual graphics
         batch.end();
 
+        renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         drawChain(chain);
         renderer.end();
+        debugRenderer.render(world, camera.combined);
 
     }
 
     private void drawBall(Ball ball){
-        renderer.setColor(ball.color);
-        renderer.circle(ball.position.x, ball.position.y, ball.radius);
+        renderer.setColor(ball.getColor());
+        renderer.circle(ball.getPosition().x, ball.getPosition().y, ball.getRadius());
     }
 
     private  void drawLink(Link link) {
 
-        renderer.line(link.parent.position.x, link.parent.position.y, link.child.position.x, link.child.position.y, link.parent.color, link.child.color);
+        renderer.line(link.parent.position.x, link.parent.position.y, link.child.getPosition().x, link.child.position.y, link.parent.color, link.child.color);
     }
 
     private void drawChain(Chain chain) {
@@ -88,87 +102,5 @@ public class ChainTestActivity extends ScreenAdapter {
         }
     }
 
-    public class Ball {
-        Vector2 position = new Vector2();
-        float radius = 10.0f;
-        Color color = new Color();
-        Link down;
 
-        void act(float delta) {
-            if (down == null) return;
-            down.act(delta);
-        }
-    }
-
-    public class Link {
-        Ball parent;
-        Ball child;
-        float angle;
-        float speed;
-        int length;
-
-        public Link(Ball parent, Ball child) {
-            this.parent = parent;
-            this.child = child;
-        }
-
-        void act(float delta) {
-            if (child == null) return;
-            angle += speed * delta;
-            Vector2 newPosChild = new Vector2();
-            newPosChild.x = parent.position.x + length * (float) Math.cos(angle);
-            newPosChild.y = parent.position.y + length * (float) Math.sin(angle);
-            child.position = newPosChild;
-            child.act(delta);
-        }
-    }
-
-    public class Chain {
-        Vector2 rootPos = new Vector2();
-        Ball root;
-
-        public Chain(Ball root) {
-            this.root = root;
-            this.rootPos = root.position;
-        }
-
-        public void addBall() {
-            Ball current = root;
-            while (true) {
-                if(current.down == null) {
-                    Ball ball = randomBall();
-                    current.down = randomLink(current, ball);
-                    current = ball;
-                    break;
-                } else {
-                    current = current.down.child;
-                }
-            }
-        }
-
-        private Link randomLink(Ball parent, Ball child) {
-            Link link = new Link(parent, child);
-            link.length = rand.nextInt(100) + 50;
-            link.angle = rand.nextFloat() * 2 * (float) Math.PI;
-            link.speed = (rand.nextFloat() * (float) Math.PI) - ((float) Math.PI / 2);
-            return link;
-
-        }
-
-        private Ball randomBall() {
-            Ball ball = new Ball();
-
-            ball.position.x  = rand.nextInt(width + 1);
-            ball.position.y = rand.nextInt(height + 1);
-            ball.radius  = rand.nextInt(6) + 12;
-            ball.color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1);
-
-            return ball;
-        }
-
-        void act(float delta) {
-            root.act(delta);
-        }
-
-    }
 }
