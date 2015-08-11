@@ -143,9 +143,9 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
             fixtureDef.density = 1f;
             fixtureDef.shape = shape;
             fixtureDef.filter.groupIndex = CollisionChannelDefinition.GROUP_TRIGGER;
-            fixtureDef.isSensor = true;
 
-            body.createFixture(fixtureDef);
+            Fixture f = body.createFixture(fixtureDef);
+            f.setUserData(rectangleObject.getProperties());
             Gdx.app.log("TRIGGERD", " created trigger with " + rect.toString());
         }
 
@@ -168,15 +168,15 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
         mapRenderer.setView(camera);
         mapRenderer.render();
         stage.draw();
-        debugRenderer.render(world, camera.combined);
-
-        shapeRenderer.setProjectionMatrix(camera.projection);
-        shapeRenderer.setTransformMatrix(camera.view);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (Rectangle rect : rectangleArray) {
-            shapeRenderer.rect(rect.x, rect.y, rect.getWidth(), rect.getHeight());
-        }
-        shapeRenderer.end();
+//        debugRenderer.render(world, camera.combined);
+//
+//        shapeRenderer.setProjectionMatrix(camera.projection);
+//        shapeRenderer.setTransformMatrix(camera.view);
+//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        for (Rectangle rect : rectangleArray) {
+//            shapeRenderer.rect(rect.x, rect.y, rect.getWidth(), rect.getHeight());
+//        }
+//        shapeRenderer.end();
 
     }
 
@@ -275,15 +275,17 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
         Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
 
         if (fixtureA.getUserData() != null && fixtureA.getUserData() instanceof Ball) {
-            if (fixtureB.isSensor()) {
+            if (fixtureB.getUserData() != null) {
                 game.notifyLevelWon();
+            } else {
+                bounceOff((Ball) fixtureA.getUserData());
             }
-            bounceOff((Ball) fixtureA.getUserData());
         } else if (fixtureB.getUserData() != null && fixtureB.getUserData() instanceof Ball) {
-            if (fixtureA.isSensor()) {
+            if (fixtureA.getUserData() != null) {
                 game.notifyLevelWon();
+            } else {
+                bounceOff((Ball) fixtureB.getUserData());
             }
-            bounceOff((Ball) fixtureB.getUserData());
         }
 
     }
@@ -306,7 +308,19 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
+        Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
 
+        if (fixtureA.getUserData() != null && fixtureA.getUserData() instanceof Ball) {
+            if (fixtureB.getUserData() != null) {
+                contact.setEnabled(false);
+            }
+        } else if (fixtureB.getUserData() != null && fixtureB.getUserData() instanceof Ball) {
+            if (fixtureA.getUserData() != null) {
+                contact.setEnabled(false);
+            }
+        }
     }
 
     @Override

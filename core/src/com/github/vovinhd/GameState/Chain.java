@@ -64,7 +64,7 @@ public class Chain extends Actor {
         Link link = new Link(parent, child);
         link.length = 50;
         link.angle = rand.nextFloat() * 2 * (float) Math.PI;
-        link.speed = 5;
+        link.speed = 2;
         links.add(link);
         return link;
     }

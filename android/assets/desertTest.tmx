@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="30">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="32">
  <tileset firstgid="1" name="DesertExampleMapTiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <tile id="0">
@@ -91,7 +91,7 @@
   <object id="26" x="23" y="744.667" width="720" height="21.3333"/>
  </objectgroup>
  <objectgroup name="Triggers">
-  <object id="29" x="607.333" y="94.6667" width="34" height="34">
+  <object id="29" x="607.833" y="96.042" width="32.167" height="31.8671">
    <properties>
     <property name="Trigger " value="EXIT"/>
     <property name="Value" value="0"/>
