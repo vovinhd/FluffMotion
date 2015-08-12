@@ -152,7 +152,7 @@ public class Ball extends Actor {
         sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
 
         if (down == null) return;
-        down.act(delta);
+        down._act(delta);
     }
 
     void swapUpDown() {

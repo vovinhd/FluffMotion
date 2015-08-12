@@ -66,6 +66,7 @@ public class Chain extends Actor {
         link.angle = rand.nextFloat() * 2 * (float) Math.PI;
         link.speed = 2;
         links.add(link);
+        stage.addActor(link);
         return link;
     }
 
@@ -104,7 +105,7 @@ public class Chain extends Actor {
     public void act(float delta) {
         root.act(delta);
         if (root.getUp() != null) {
-            root.getUp().act(delta);
+            root.getUp()._act(delta);
         }
     }
 

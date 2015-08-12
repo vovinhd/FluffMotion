@@ -102,6 +102,7 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
         stage.addActor(hero);
         chain = new Chain(hero, world, stage);
         chain.addRandomBall();
+        chain.addRandomBall();
 
 
         int objectLayerId = 1;
