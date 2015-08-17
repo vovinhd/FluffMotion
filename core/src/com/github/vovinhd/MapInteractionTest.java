@@ -1,9 +1,6 @@
 package com.github.vovinhd;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +16,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -97,12 +96,36 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
         world = new World(new Vector2(0, 0), true);
         world.setContactListener(this);
         shapeRenderer = new ShapeRenderer();
-        hero = new Ball(new Vector2(100, 100), Color.BLACK, world);
-        stage = new Stage(viewport, batch);
-        stage.addActor(hero);
-        chain = new Chain(hero, world, stage);
+        hero = new Ball(new Vector2(300, 300), Color.BLACK, world);
+        stage = new Stage(viewport, batch) {
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                Vector2 touchDownAt = new Vector2(screenX, screenY);
+                Vector2 touchDownStage = screenToStageCoordinates(touchDownAt);
+                Gdx.app.log("TOUCH AT", touchDownStage.toString());
+                Actor actor = hit(touchDownStage.x, touchDownStage.y, true);
+                if (actor == null) return false;
+                if (actor instanceof Ball) {
+                    Gdx.app.log("Touched ball ", actor.toString());
+                    chain.reRoot((Ball) actor);
+                    return true;
+                }
+                return false;
+            }
+        };
+        Group ballGroup = new Group();
+        Group linkGroup = new Group();
+
+        ballGroup.addActor(hero);
+        stage.addActor(linkGroup);
+        stage.addActor(ballGroup);
+
+        chain = new Chain(hero, world, ballGroup, linkGroup);
         chain.addRandomBall();
         chain.addRandomBall();
+        chain.addRandomBall();
+        chain.addRandomBall();
+        stage.addActor(chain);
 
 
         int objectLayerId = 1;
@@ -152,7 +175,11 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
 
         debugRenderer = new Box2DDebugRenderer();
 
-        Gdx.input.setInputProcessor(this);
+        InputMultiplexer im = new InputMultiplexer();
+        im.addProcessor(stage);
+        im.addProcessor(this);
+
+        Gdx.input.setInputProcessor(im);
     }
 
     @Override
@@ -169,7 +196,7 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
         mapRenderer.setView(camera);
         mapRenderer.render();
         stage.draw();
-//        debugRenderer.render(world, camera.combined);
+        debugRenderer.render(world, camera.combined);
 //
 //        shapeRenderer.setProjectionMatrix(camera.projection);
 //        shapeRenderer.setTransformMatrix(camera.view);
@@ -245,17 +272,11 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
 
                 break;
 
-            case Input.Keys.W:
-                chain.rootUp();
-                break;
-            case Input.Keys.S:
-                chain.rootDown();
-                break;
-
         }
 
         return super.keyDown(keycode);
     }
+
 
     private void constrainViewToMap(OrthographicCamera camera) {
         if (camera.position.x - camera.viewportWidth / 2 < 0)
@@ -273,7 +294,6 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
     public void beginContact(Contact contact) {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
 
         if (fixtureA.getUserData() != null && fixtureA.getUserData() instanceof Ball) {
             if (fixtureB.getUserData() != null) {
@@ -294,6 +314,10 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
     public void bounceOff(Ball ball) {
         if (ball.getUp() != null) {
             ball.getUp().speed = -ball.getUp().speed;
+        } else if (ball.getDown() != null) {
+            ball.getDown().speed = -ball.getDown().speed;
+
+
         } else {
             Gdx.app.log("ERROR", "Non ball was bounced of a Wall");
         }
@@ -303,7 +327,6 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
     public void endContact(Contact contact) {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
 
     }
 
@@ -311,7 +334,6 @@ public class MapInteractionTest extends InputAdapter implements Screen, ContactL
     public void preSolve(Contact contact, Manifold oldManifold) {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
 
         if (fixtureA.getUserData() != null && fixtureA.getUserData() instanceof Ball) {
             if (fixtureB.getUserData() != null) {

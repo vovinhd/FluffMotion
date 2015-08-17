@@ -73,29 +73,16 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="24" height="24">
+ <layer name="Tile Layer 1" width="24" height="24" opacity="0.9">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKIRZgZiTiDmohHmHmLm6w1x9w+k+SJALISERckUx2U+iC2HhMkVx2W+DANq3pAlU3y4xu+o+fjNH03/wzt+R83Hbr4gA2o6piYWBmIAV+QZaQ==
+   eJxjZGBgYKIRZgZiTiDmohHmHmLm6w1x94+aP2r+qPmj5o+aP2o+vcwXBGIhGmFhIAYAC9AWpQ==
   </data>
  </layer>
  <objectgroup name="Collision">
-  <object id="7" x="73.4545" y="233.636" width="140.455" height="76.4545"/>
-  <object id="8" x="73.8182" y="490.091" width="139.818" height="75.8182"/>
-  <object id="9" x="265.727" y="490" width="140.364" height="75.9091"/>
-  <object id="10" x="458" y="489.727" width="139.818" height="76.1818"/>
-  <object id="11" x="457.818" y="233.909" width="140.091" height="76.1818"/>
-  <object id="12" x="266.091" y="233.818" width="140" height="76.2727"/>
   <object id="21" x="0" y="0.333333" width="21.3333" height="771.333"/>
   <object id="22" x="746" y="-1.42109e-14" width="21.3333" height="771.333"/>
   <object id="25" x="23.5" y="0.666667" width="720.5" height="21.3333"/>
   <object id="26" x="23" y="744.667" width="720" height="21.3333"/>
  </objectgroup>
- <objectgroup name="Triggers">
-  <object id="29" x="607.833" y="96.042" width="32.167" height="31.8671">
-   <properties>
-    <property name="Trigger " value="EXIT"/>
-    <property name="Value" value="0"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup name="Triggers"/>
 </map>

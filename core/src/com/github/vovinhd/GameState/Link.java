@@ -14,14 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Link extends Actor{
 
+    //TODO document this nonsense
+    private final Chain chain;
+    public int id = 0;
     public Texture textureLeftSegment = new Texture(Gdx.files.internal("line_l.png"));
     public Texture textureRightSegment = new Texture(Gdx.files.internal("line_r.png"));
     public Texture textureCenterSegment = new Texture(Gdx.files.internal("line_c.png"));
+    public Texture textureCenterSegment_ = new Texture(Gdx.files.internal("line_c0.png"));
     public TextureRegion textureRegionRect = new TextureRegion(textureCenterSegment);
-
+    public TextureRegion textureRegionRect_ = new TextureRegion(textureCenterSegment_);
     public Sprite spriteLeftSegment = new Sprite(textureLeftSegment);
     public Sprite spriteRightSegment = new Sprite(textureRightSegment);
     public Sprite spriteCenterSegment = new Sprite(textureCenterSegment);
+    public boolean hasBeenSwapped;
 
     public float[] vertices = new float[1];
 
@@ -32,7 +37,8 @@ public class Link extends Actor{
     public int length;
     float springConstant;
 
-    public Link(Ball parent, Ball child) {
+    public Link(Chain chain, Ball parent, Ball child) {
+        this.chain = chain;
         this.parent = parent;
         this.child = child;
         parent.setDown(this);
@@ -45,6 +51,9 @@ public class Link extends Actor{
         parent = child;
         child = temp;
         angle -= Math.PI;
+        TextureRegion tmp = textureRegionRect;
+        textureRegionRect = textureRegionRect_;
+        textureRegionRect_ = tmp;
     }
 
     @Override
@@ -52,7 +61,7 @@ public class Link extends Actor{
         //   drawTextureSegment(spriteLeftSegment, batch, parentAlpha);
         //   drawTextureSegment(spriteRightSegment, batch, parentAlpha);
         //   drawTextureSegment(spriteCenterSegment, batch, parentAlpha);
-        drawLine((int) parent.position.x, (int) parent.position.y, (int) child.position.x, (int) child.position.y, 5, batch);
+        drawLine((int) parent.position.x, (int) parent.position.y, (int) child.position.x, (int) child.position.y, 1, batch);
     }
 
     void drawLine(int x1, int y1, int x2, int y2, int thickness, Batch batch) {
@@ -73,7 +82,38 @@ public class Link extends Actor{
 
         child.setPosition(newPosChild);
         child.act(delta);
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Link)) return false;
 
+        Link link = (Link) o;
+
+        if (length != link.length) return false;
+        if (!parent.equals(link.parent)) return false;
+        return child.equals(link.child);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = parent.hashCode();
+        result = 31 * result + child.hashCode();
+        result = 31 * result + length;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Link{" +
+                "id=" + id +
+                ", parent=" + parent +
+                ", child=" + child +
+                ", length=" + length +
+                ", angle=" + angle +
+                ", speed=" + speed +
+                '}';
     }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.vovinhd.GameState.Ball;
 import com.github.vovinhd.GameState.Chain;
@@ -51,7 +52,10 @@ public class ChainTestActivity extends ScreenAdapter {
 
         root = new Ball(new Vector2(100, 100), Color.BLACK, world);
         stage = new Stage();
-        chain = new Chain(root, world, stage);
+        Group group = new Group();
+        Group group1 = new Group();
+
+        chain = new Chain(root, world, group, group1);
 
         chain.addRandomBall();
         chain.addRandomBall();
