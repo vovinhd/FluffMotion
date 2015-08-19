@@ -11,7 +11,7 @@ public class FluffMotion extends Game {
 	
 	@Override
 	public void create () {
-		setScreen(new MapInteractionTest(this));
+		setScreen(new Box2DTestActivity(this));
 	}
 
 	public void notifyLevelWon() {

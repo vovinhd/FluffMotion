@@ -26,9 +26,9 @@ public class Link extends Actor{
     public Sprite spriteLeftSegment = new Sprite(textureLeftSegment);
     public Sprite spriteRightSegment = new Sprite(textureRightSegment);
     public Sprite spriteCenterSegment = new Sprite(textureCenterSegment);
-    public boolean hasBeenSwapped;
 
     public float[] vertices = new float[1];
+
 
     public Ball parent;
     public Ball child;

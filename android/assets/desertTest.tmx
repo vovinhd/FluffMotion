@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="34">
  <tileset firstgid="1" name="DesertExampleMapTiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
   <tile id="0">
@@ -72,6 +72,11 @@
     <property name="blocking" value="0"/>
    </properties>
   </tile>
+  <tile id="37">
+   <properties>
+    <property name="brick" value="3"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="24" height="24" opacity="0.9">
   <data encoding="base64" compression="zlib">
@@ -84,5 +89,16 @@
   <object id="25" x="23.5" y="0.666667" width="720.5" height="21.3333"/>
   <object id="26" x="23" y="744.667" width="720" height="21.3333"/>
  </objectgroup>
- <objectgroup name="Triggers"/>
+ <objectgroup name="Triggers">
+  <object id="32" x="608" y="94" width="34" height="34">
+   <properties>
+    <property name="exit" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="objects" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApoD9SgeBSMgsEAAMsoAE0=
+  </data>
+ </layer>
 </map>

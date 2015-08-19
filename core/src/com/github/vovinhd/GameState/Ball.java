@@ -70,6 +70,16 @@ public class Ball extends Actor {
 
     }
 
+    public void bounceOff() {
+        Gdx.app.log("Bounce", toString());
+        if (getUp() != null) {
+            getUp().speed = -getUp().speed;
+
+        } else {
+            Gdx.app.log("ERROR", "Non ball was bounced of a Wall");
+        }
+    }
+
     public Body getBody() {
         return body;
     }
