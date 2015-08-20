@@ -143,7 +143,6 @@ public class LevelLoader {
                 chain = new Chain(hero, world, ballGroup, linkGroup);
                 chain.addRandomBall();
                 chain.addRandomBall();
-                chain.addRandomBall();
                 stage.addActor(chain);
                 continue;
             }

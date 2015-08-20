@@ -1,0 +1,9 @@
+Jeder Level hat 4 Layer, 2 Object, 2 Tile:
+    - Tile Layer:
+        - ground: das eigentliche Areal
+        - objects: Bricks, die tiles mussen dafür den Key brick und einen value int haben
+    - Object Layer:
+        - triggers: Trigger System Enthält mindestens einen trigger : PlayerSpawn und einen trigger : exit
+        - collision: Statisches Kollisionsmesh des Levels (aus Rechtecken)
+
+!!!! Wenn man den Level das erste Mal speichert werden die TileSets mit absolutem Pfad gespeichert, dies MUSS durch einen relativen Pfad zu assets/ ersetzt werden !!!!

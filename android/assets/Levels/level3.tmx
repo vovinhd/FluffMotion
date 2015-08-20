@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" nextobjectid="36">
+ <tileset firstgid="1" name="DesertExampleMapTiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="../tmw_desert_spacing.png" width="265" height="199"/>
+  <tile id="0">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="blocking" value="0"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="blocking" value="1"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="blocking" value="0"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="brick" value="3"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="ground" width="24" height="24" opacity="0.9">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYKIRZgZiTiDmohHmHmLm6w1x94+aP2r+qPmj5o+aP2o+vcwXBGIhGmFhIAYAC9AWpQ==
+  </data>
+ </layer>
+ <objectgroup name="collision" visible="0">
+  <object id="21" x="0" y="0.333333" width="21.3333" height="771.333"/>
+  <object id="22" x="746" y="-1.42109e-14" width="21.3333" height="771.333"/>
+  <object id="25" x="23.5" y="0.666667" width="720.5" height="21.3333"/>
+  <object id="26" x="23" y="744.667" width="720" height="21.3333"/>
+ </objectgroup>
+ <objectgroup name="triggers">
+  <properties>
+   <property name="trigger" value="PlayerSpawn"/>
+  </properties>
+  <object id="32" x="608" y="94" width="34" height="34">
+   <properties>
+    <property name="trigger" value="exit"/>
+   </properties>
+  </object>
+  <object id="34" x="384" y="311" width="25" height="24">
+   <properties>
+    <property name="trigger" value="PlayerSpawn"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="objects" width="24" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApoD9SgeBSMgsEAAMsoAE0=
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,25 @@
+{
+  "levels": [
+    {
+      "name": "Level 1",
+      "shortName": "1",
+      "mapPath": "level1.tmx",
+      "parScore": 500,
+      "parTime": 120.5
+    },
+    {
+      "name": "Level 2",
+      "shortName": "2",
+      "mapPath": "level2.tmx",
+      "parScore": 500,
+      "parTime": 120.5
+    },
+    {
+      "name": "Level 3",
+      "shortName": "3",
+      "mapPath": "level3.tmx",
+      "parScore": 500,
+      "parTime": 120.5
+    }
+  ]
+}

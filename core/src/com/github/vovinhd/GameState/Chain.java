@@ -85,7 +85,7 @@ public class Chain extends Actor {
         Link link = new Link(this, parent, child);
         link.length = 50;
         link.angle = 0;
-        link.speed = 1;
+        link.speed = 2;
         link.id = nextLinkId();
         links.add(link);
         linkGroup.addActor(link);

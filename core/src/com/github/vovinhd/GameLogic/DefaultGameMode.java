@@ -10,9 +10,18 @@ public class DefaultGameMode implements GameMode {
     private FluffMotion game;
     private int score;
     private float time;
+    private LevelDescriptor levelDescriptor;
 
     public DefaultGameMode(FluffMotion game) {
         this.game = game;
+    }
+
+    public LevelDescriptor getLevelDescriptor() {
+        return levelDescriptor;
+    }
+
+    public void setLevelDescriptor(LevelDescriptor levelDescriptor) {
+        this.levelDescriptor = levelDescriptor;
     }
 
     public int getScore() {
@@ -27,7 +36,7 @@ public class DefaultGameMode implements GameMode {
     public void trigger(String trigger) {
         switch (trigger) {
             case Trigger.EXIT_TRIGGER:
-                game.notifyLevelWon();
+                game.notifyLevelWon(this, levelDescriptor);
                 break;
         }
     }

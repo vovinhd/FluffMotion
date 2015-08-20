@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.vovinhd.GameLogic.GameMode;
+import com.github.vovinhd.GameLogic.LevelDescriptor;
 import com.github.vovinhd.GameState.Brick;
 import com.github.vovinhd.GameState.Chain;
 import com.github.vovinhd.Input.PointerInputAdapter;
@@ -28,6 +29,7 @@ import com.github.vovinhd.Services.LevelLoader;
  */
 public class MapInteractionTest implements Screen {
 
+    private static final String MAP_PATH_PREFIX = "Levels/";
     private final GameMode gameMode;
     float mapScaleFactor = 1f;
     float cameraZoomFactor = 1f / 128f;
@@ -44,13 +46,23 @@ public class MapInteractionTest implements Screen {
     Chain chain;
     ShapeRenderer shapeRenderer;
     FluffMotion game;
+    private Hud hud;
     private Group brickGroup;
     private int mapPixelWidth;
     private int mapPixelHeight;
 
+    private LevelDescriptor levelDescriptor; 
+    
     public MapInteractionTest(FluffMotion game, GameMode gameMode) {
         this.game = game;
         this.gameMode = gameMode;
+    }
+
+    public MapInteractionTest(FluffMotion game, GameMode gameMode, LevelDescriptor levelDescriptor) {
+        this.game = game;
+        this.gameMode = gameMode;
+        this.levelDescriptor = levelDescriptor;
+        gameMode.setLevelDescriptor(levelDescriptor);
     }
 
     public float getMapScaleFactor() {
@@ -68,8 +80,9 @@ public class MapInteractionTest implements Screen {
         batch = new SpriteBatch();
         viewport = new ScreenViewport(camera);
         shapeRenderer = new ShapeRenderer();
+        hud = new Hud(gameMode, viewport, batch);
 
-        LevelLoader loader = new LevelLoader("desertTest.tmx", gameMode);
+        LevelLoader loader = new LevelLoader((levelDescriptor != null ? MAP_PATH_PREFIX + levelDescriptor.getMapPath() : "desertTest.tmx"), gameMode);
         loader.load(viewport, batch);
 
         map = loader.getMap();
@@ -99,6 +112,7 @@ public class MapInteractionTest implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         world.step(delta, 6, 2);
+        gameMode.tick(delta);
         sweepDeadBodies();
         camera.position.set(chain.root.getPosition().x, chain.root.getPosition().y, camera.position.z);
         constrainViewToMap(camera);
@@ -108,6 +122,7 @@ public class MapInteractionTest implements Screen {
         mapRenderer.setView(camera);
         mapRenderer.render();
         stage.draw();
+        hud.render(delta);
         debugRenderer.render(world, camera.combined);
 //
 //        shapeRenderer.setProjectionMatrix(camera.projection);
