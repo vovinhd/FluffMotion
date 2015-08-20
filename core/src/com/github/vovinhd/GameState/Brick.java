@@ -9,12 +9,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.github.vovinhd.GameLogic.GameMode;
 
 /**
  * Created by vovin on 17/08/2015.
  */
 public class Brick extends Actor {
 
+    private final GameMode gameMode;
     private Rectangle bounds;
     private Sprite[] sprites;
     private boolean isDead = false;
@@ -22,9 +24,11 @@ public class Brick extends Actor {
     private int maxDamage;
     private Body body;
     private Fixture fixture;
+    private int value;
 
-    public Brick(Stage parent, Rectangle rectangle, int maxDamage, World world) {
-
+    public Brick(Stage parent, Rectangle rectangle, int maxDamage, int value, World world, GameMode gameMode) {
+        this.value = value;
+        this.gameMode = gameMode;
         this.setStage(parent);
         this.bounds = rectangle;
         this.maxDamage = maxDamage;
@@ -76,6 +80,10 @@ public class Brick extends Actor {
 
         polygon.set(verts);
         return polygon;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     public boolean isDead() {
@@ -158,6 +166,7 @@ public class Brick extends Actor {
 
     public void destroy() {
         isDead = true;
+        gameMode.brickDestroyed(this);
     }
 
 
