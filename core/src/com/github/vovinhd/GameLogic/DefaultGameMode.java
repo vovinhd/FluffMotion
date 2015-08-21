@@ -1,7 +1,7 @@
 package com.github.vovinhd.GameLogic;
 
 import com.github.vovinhd.FluffMotion;
-import com.github.vovinhd.GameState.Brick;
+import com.github.vovinhd.GameState.Obstacle;
 
 /**
  * Created by vovin on 20/08/2015.
@@ -42,8 +42,8 @@ public class DefaultGameMode implements GameMode {
     }
 
     @Override
-    public void brickDestroyed(Brick brick) {
-        score += brick.getValue();
+    public void brickDestroyed(Obstacle obstacle) {
+        score += obstacle.getValue();
     }
 
     @Override

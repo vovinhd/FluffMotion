@@ -93,6 +93,10 @@ public class Chain extends Actor {
         return link;
     }
 
+    public void tear(Ball ball) {
+
+    }
+
     public void reRoot(Ball ball) {
         root = ball;
         Gdx.app.log("root", root.toString());

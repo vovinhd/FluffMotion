@@ -74,7 +74,9 @@
   </tile>
   <tile id="37">
    <properties>
-    <property name="brick" value="3"/>
+    <property name="maxdamage" value="3"/>
+    <property name="obstacle" value="brick"/>
+    <property name="value" value="100"/>
    </properties>
   </tile>
  </tileset>
@@ -106,7 +108,7 @@
  </objectgroup>
  <layer name="objects" width="24" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApoD9SgeBSMgsEAAMsoAE0=
+   eJxjYBgFIwGo4cDU0jtq/qj5o+aPmj9q/qj5tDCfVgAATAggEQ==
   </data>
  </layer>
 </map>

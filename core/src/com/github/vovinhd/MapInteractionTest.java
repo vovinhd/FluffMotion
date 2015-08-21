@@ -18,8 +18,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.vovinhd.GameLogic.GameMode;
 import com.github.vovinhd.GameLogic.LevelDescriptor;
-import com.github.vovinhd.GameState.Brick;
 import com.github.vovinhd.GameState.Chain;
+import com.github.vovinhd.GameState.Obstacle;
 import com.github.vovinhd.Input.PointerInputAdapter;
 import com.github.vovinhd.Input.PointerInputMultiplexer;
 import com.github.vovinhd.Services.LevelLoader;
@@ -46,6 +46,7 @@ public class MapInteractionTest implements Screen {
     Chain chain;
     ShapeRenderer shapeRenderer;
     FluffMotion game;
+    private double accumulator, currentTime;
     private Hud hud;
     private Group brickGroup;
     private int mapPixelWidth;
@@ -108,11 +109,14 @@ public class MapInteractionTest implements Screen {
 
     @Override
     public void render(float delta) {
+        //advance Time
+        world.step(delta, 6, 4);
+        stage.act(delta);
+        gameMode.tick(delta);
+
+        //do acutal rendering
         Gdx.gl.glClearColor(0.55f, 0.55f, 0.55f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        world.step(delta, 6, 2);
-        gameMode.tick(delta);
         sweepDeadBodies();
         camera.position.set(chain.root.getPosition().x, chain.root.getPosition().y, camera.position.z);
         constrainViewToMap(camera);
@@ -138,7 +142,6 @@ public class MapInteractionTest implements Screen {
     @Override
     public void resize(int width, int height) {
         camera.setToOrtho(false, width * mapScaleFactor * cameraZoomFactor, height * mapScaleFactor * cameraZoomFactor);
-
     }
 
     @Override
@@ -163,8 +166,8 @@ public class MapInteractionTest implements Screen {
 
     private void sweepDeadBodies() {
         for (Actor actor : brickGroup.getChildren()) {
-            if (actor instanceof Brick) {
-                Brick b = (Brick) actor;
+            if (actor instanceof Obstacle) {
+                Obstacle b = (Obstacle) actor;
 
                 if (b.isDead()) {
                     Gdx.app.log("Sweeping", b.toString());

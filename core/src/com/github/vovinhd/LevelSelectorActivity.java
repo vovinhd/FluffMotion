@@ -159,6 +159,9 @@ public class LevelSelectorActivity implements Screen {
     }
 
     private void openLevel() {
+        if (selectedLevel == null) {
+            return;
+        }
         Gdx.app.log("Open", selectedLevel.toString());
         game.setScreen(new MapInteractionTest(game, gameMode, selectedLevel));
     }
@@ -174,6 +177,7 @@ public class LevelSelectorActivity implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
 
     }
 

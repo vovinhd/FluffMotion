@@ -20,9 +20,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.vovinhd.GameLogic.ChainContactListener;
 import com.github.vovinhd.GameLogic.GameMode;
 import com.github.vovinhd.GameState.Ball;
-import com.github.vovinhd.GameState.Brick;
 import com.github.vovinhd.GameState.Chain;
 import com.github.vovinhd.GameState.CollisionChannelDefinition;
+import com.github.vovinhd.GameState.Obstacle;
 
 /**
  * Created by vovin on 20/08/2015.
@@ -39,6 +39,7 @@ public class LevelLoader {
     private final String mapPath;
     private final GameMode gameMode;
 
+    private ObstacleFactory obstacleFactory;
 
     private TiledMap map;
     private World world;
@@ -109,6 +110,7 @@ public class LevelLoader {
         stage.addActor(ballGroup);
         stage.addActor(brickGroup);
 
+        obstacleFactory = new ObstacleFactory(getStage(), getWorld(), gameMode);
 
         MapLayer collisionObjectLayer = map.getLayers().get(COLLISION_LAYER_NAME);
         MapObjects objects = collisionObjectLayer.getObjects();
@@ -168,9 +170,9 @@ public class LevelLoader {
         for (int i = 0; i < mapHeight; i++) {
             for (int j = 0; j < mapWidth; j++) {
                 TiledMapTileLayer.Cell cell = tiles.getCell(i, j);
-                if (cell != null && cell.getTile().getProperties().get("brick") != null) {
-                    Brick brick = new Brick(stage, new Rectangle(tilePixelWidth * i, tilePixelHeight * j, tilePixelWidth, tilePixelHeight), 3, 100, world, gameMode);
-                    brickGroup.addActor(brick);
+                if (cell != null && cell.getTile().getProperties().get("obstacle") != null) {
+                    Obstacle obstacle = obstacleFactory.create(cell.getTile().getProperties(), new Rectangle(tilePixelWidth * i, tilePixelHeight * j, tilePixelWidth, tilePixelHeight));
+                    brickGroup.addActor(obstacle);
                     tiles.setCell(i, j, null);
                 }
             }
@@ -205,7 +207,7 @@ public class LevelLoader {
     }
 
     public Integer getMapScaleFactor() {
-        return mapScaleFactor * 2;
+        return mapScaleFactor;
     }
 
     public int getMapPixelWidth() {
