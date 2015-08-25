@@ -26,6 +26,4 @@ public class Brick extends Obstacle {
             setDamageState(getDamageState() - 1);
         }
     }
-
-
 }
