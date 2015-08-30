@@ -4,7 +4,7 @@
   <image source="../tmw_desert_spacing.png" width="265" height="199"/>
   <tile id="37">
    <properties>
-    <property name="maxDamage" value="3"/>
+    <property name="maxdamage" value="3"/>
     <property name="obstacle" value="brick"/>
     <property name="value" value="100"/>
    </properties>

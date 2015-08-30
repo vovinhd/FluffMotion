@@ -55,8 +55,10 @@ public class ObstacleFactory {
             value = Integer.parseInt((String) properties.get("value"));
             return create(type, rectangle, maxDamage, value);
         } catch (NullPointerException e) {
+            Gdx.app.log(getClass().getSimpleName(), e.getStackTrace().toString());
             throw new IllegalArgumentException("Obstacle missing parameters!");
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | NumberFormatException e) {
+            Gdx.app.log(getClass().getSimpleName(), e.getMessage());
             throw new IllegalArgumentException("Obstacle malformed!");
         }
     }

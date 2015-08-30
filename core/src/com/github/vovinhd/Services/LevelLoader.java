@@ -171,9 +171,15 @@ public class LevelLoader {
             for (int j = 0; j < mapWidth; j++) {
                 TiledMapTileLayer.Cell cell = tiles.getCell(i, j);
                 if (cell != null && cell.getTile().getProperties().get("obstacle") != null) {
-                    Obstacle obstacle = obstacleFactory.create(cell.getTile().getProperties(), new Rectangle(tilePixelWidth * i, tilePixelHeight * j, tilePixelWidth, tilePixelHeight));
-                    brickGroup.addActor(obstacle);
-                    tiles.setCell(i, j, null);
+                    try {
+                        Obstacle obstacle = obstacleFactory.create(cell.getTile().getProperties(), new Rectangle(tilePixelWidth * i, tilePixelHeight * j, tilePixelWidth, tilePixelHeight));
+                        brickGroup.addActor(obstacle);
+                        tiles.setCell(i, j, null);
+                        Gdx.app.log(getClass().getCanonicalName(), "added obstacle " + obstacle.toString());
+
+                    } catch (IllegalArgumentException e) {
+                        Gdx.app.log(getClass().getCanonicalName(), e.getMessage());
+                    }
                 }
             }
         }

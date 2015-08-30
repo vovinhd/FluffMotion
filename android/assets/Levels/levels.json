@@ -20,6 +20,13 @@
       "mapPath": "level3.tmx",
       "parScore": 500,
       "parTime": 120.5
+    },
+    {
+      "name": "Level 4",
+      "shortName": "4",
+      "mapPath": "level4.tmx",
+      "parScore": 2000,
+      "parTime": 60
     }
   ]
 }

@@ -68,7 +68,7 @@ public class PostLevelActivity extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         Label heading = new Label("FluffMotion", headingStyle);
         heading.setAlignment(Align.center);
-        parentLayout.add(heading).expandX().colspan(2);
+        parentLayout.add(heading).colspan(2);
         parentLayout.row();
         Label par = new Label("Par", infoStyle);
         Label you = new Label("Run", infoStyle);

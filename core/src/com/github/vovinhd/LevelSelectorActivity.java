@@ -58,9 +58,9 @@ public class LevelSelectorActivity implements Screen {
         lds.loadManifest();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("FiraMono-Bold.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameterHeading = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameterHeading.size = 50;
+        parameterHeading.size = 100;
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 25;
+        parameter.size = 55;
         headingFont = generator.generateFont(parameterHeading);
         font = generator.generateFont(parameter);
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
@@ -131,7 +131,7 @@ public class LevelSelectorActivity implements Screen {
         Array<LevelDescriptor> levels = lds.getLevels();
         for (int i = 0; i < levels.size; i++) {
             final LevelDescriptor levelDescriptor = levels.get(i);
-            TextButton levelSelectButton = new TextButton(levelDescriptor.getShortName(), levelSelectionButtonStyle);
+            TextButton levelSelectButton = new TextButton(" " + levelDescriptor.getShortName() + " ", levelSelectionButtonStyle);
             levelSelectButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
