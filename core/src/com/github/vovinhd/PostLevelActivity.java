@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.github.vovinhd.GameLogic.GameMode;
 import com.github.vovinhd.GameLogic.LevelDescriptor;
+import com.github.vovinhd.persistence.ProgressTracker;
 
 /**
  * Created by vovin on 20/08/2015.
@@ -27,6 +28,7 @@ public class PostLevelActivity extends ScreenAdapter {
     private final LevelDescriptor levelDescriptor;
     private final GameMode gameMode;
     private final FluffMotion game;
+    private final ProgressTracker progressTracker = ProgressTracker.getInstance();
     Stage stage;
     BitmapFont headingFont;
     BitmapFont font;
@@ -41,6 +43,7 @@ public class PostLevelActivity extends ScreenAdapter {
     Label.LabelStyle infoStyle;
 
     public PostLevelActivity(LevelDescriptor levelDescriptor, GameMode gameMode, FluffMotion game) {
+
         this.levelDescriptor = levelDescriptor;
         this.gameMode = gameMode;
         this.game = game;
@@ -76,7 +79,7 @@ public class PostLevelActivity extends ScreenAdapter {
         parentLayout.add(you);
         parentLayout.row();
         Label parScore = new Label(String.valueOf("Score: " + levelDescriptor.getParScore()), infoStyle);
-        Label score = new Label(String.valueOf(gameMode.getScore()), infoStyle);
+        Label score = new Label(String.valueOf(gameMode.getPoints()), infoStyle);
         parentLayout.add(parScore);
         parentLayout.add(score);
         parentLayout.row();
@@ -107,7 +110,9 @@ public class PostLevelActivity extends ScreenAdapter {
         parentLayout.add(levelListButton);
         parentLayout.setFillParent(true);
         stage.addActor(parentLayout);
-
+        progressTracker.saveLevelProgress(gameMode.getScore());
+        progressTracker.saveProgress();
+        gameMode.resetScore();
     }
 
     private void levelList() {

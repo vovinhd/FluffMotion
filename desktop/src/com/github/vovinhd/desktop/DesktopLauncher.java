@@ -7,8 +7,9 @@ import com.github.vovinhd.FluffMotion;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1280;
-		config.height = 1280;
-		new LwjglApplication(new FluffMotion(), config);
+        config.width = 1680;
+        config.height = 1050;
+        config.overrideDensity = 200;
+        new LwjglApplication(new FluffMotion(), config);
 	}
 }

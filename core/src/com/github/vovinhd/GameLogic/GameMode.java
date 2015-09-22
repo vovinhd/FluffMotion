@@ -15,7 +15,13 @@ public interface GameMode {
 
     float getTime();
 
-    int getScore();
+    int getPoints();
 
     void setLevelDescriptor(LevelDescriptor levelDescriptor);
+
+    Score getScore();
+
+    void setScore(Score score);
+
+    void resetScore();
 }

@@ -17,7 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 public class MapLoaderTestActivity extends InputAdapter implements Screen {
 
     float MAPSCALEFACTOR = 1f/32f;
-    float CAMERAZOOMFACTOR = 1f/4f;
+    float CAMERAZOOMFACTOR = 1f / 2f;
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
     OrthographicCamera camera;

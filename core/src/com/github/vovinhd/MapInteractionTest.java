@@ -32,7 +32,7 @@ public class MapInteractionTest implements Screen {
     private static final String MAP_PATH_PREFIX = "Levels/";
     private final GameMode gameMode;
     float mapScaleFactor = 1f;
-    float cameraZoomFactor = 1f / 128f;
+    float cameraZoomFactor = 1f / (32f * Gdx.graphics.getDensity());
     TiledMap map;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
@@ -76,7 +76,7 @@ public class MapInteractionTest implements Screen {
 
     @Override
     public void show() {
-        camera = new OrthographicCamera();
+        camera = new OrthographicCamera(800, 480);
         camera.setToOrtho(false);
         batch = new SpriteBatch();
         viewport = new ScreenViewport(camera);
@@ -127,7 +127,7 @@ public class MapInteractionTest implements Screen {
         mapRenderer.render();
         stage.draw();
         hud.render(delta);
-        debugRenderer.render(world, camera.combined);
+//        debugRenderer.render(world, camera.combined);
 //
 //        shapeRenderer.setProjectionMatrix(camera.projection);
 //        shapeRenderer.setTransformMatrix(camera.view);

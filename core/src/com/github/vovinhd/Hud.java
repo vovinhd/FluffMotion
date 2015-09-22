@@ -49,7 +49,7 @@ public class Hud {
     public void render(float delta) {
         stage.act(delta);
         timeTaken.setText(timeFormat.format(gameMode.getTime()));
-        score.setText(String.valueOf(gameMode.getScore()));
+        score.setText(String.valueOf(gameMode.getPoints()));
         stage.draw();
 
     }

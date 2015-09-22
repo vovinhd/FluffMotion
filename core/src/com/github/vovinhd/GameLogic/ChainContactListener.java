@@ -1,9 +1,13 @@
 package com.github.vovinhd.GameLogic;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.github.vovinhd.GameState.Ball;
 import com.github.vovinhd.GameState.Obstacle;
 
@@ -23,7 +27,6 @@ public class ChainContactListener implements ContactListener {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
         contact.getWorldManifold();
-        Gdx.app.log("Collision", fixtureA.toString() + " <- A | B -> " + fixtureB.toString());
         if (fixtureA.getUserData() != null && fixtureA.getUserData() instanceof Ball) {
             resolveContact(fixtureA, fixtureB, contact.getWorldManifold());
         } else if (fixtureB.getUserData() != null && fixtureB.getUserData() instanceof Ball) {

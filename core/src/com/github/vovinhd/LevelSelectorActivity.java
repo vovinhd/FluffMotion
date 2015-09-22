@@ -21,7 +21,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.github.vovinhd.GameLogic.GameMode;
 import com.github.vovinhd.GameLogic.LevelDescriptor;
+import com.github.vovinhd.GameLogic.Score;
 import com.github.vovinhd.Services.LevelDiscoveryService;
+import com.github.vovinhd.persistence.ProgressTracker;
 
 /**
  * Created by vovin on 20/08/2015.
@@ -47,11 +49,15 @@ public class LevelSelectorActivity implements Screen {
     private FluffMotion game;
     private GameMode gameMode;
     private LevelDiscoveryService lds;
+    private ProgressTracker progressTracker = ProgressTracker.getInstance();
     private Label levelName;
     private Label parScore;
     private Label parTime;
+    private Label highScore;
+    private Label highTime;
 
     public LevelSelectorActivity(FluffMotion game, GameMode gameMode) {
+        Gdx.app.log(getClass().getSimpleName(), "Scaling factor is " + Gdx.graphics.getDensity());
         this.game = game;
         this.gameMode = gameMode;
         lds = new LevelDiscoveryService();
@@ -106,6 +112,10 @@ public class LevelSelectorActivity implements Screen {
         parScore = new Label("", infoStyle);
         Label _parTime = new Label("Par Time: ", infoStyle);
         parTime = new Label("", infoStyle);
+        Label _highScore = new Label("HighScore: ", infoStyle);
+        highScore = new Label("not played", infoStyle);
+        Label _highTime = new Label("Best time: ", infoStyle);
+        highTime = new Label("not played", infoStyle);
         descriptionPane.add(_levelName);
         descriptionPane.add(levelName).expandX();
         descriptionPane.row();
@@ -114,6 +124,12 @@ public class LevelSelectorActivity implements Screen {
         descriptionPane.row();
         descriptionPane.add(_parTime);
         descriptionPane.add(parTime).expandX();
+        descriptionPane.row();
+        descriptionPane.add(_highScore);
+        descriptionPane.add(highScore).expandX();
+        descriptionPane.row();
+        descriptionPane.add(_highTime);
+        descriptionPane.add(highTime).expandX();
         descriptionPane.row();
         TextButton levelLaunchButton = new TextButton("Launch", levelLaunchButtonStyle);
         levelLaunchButton.addListener(new ClickListener() {
@@ -156,6 +172,10 @@ public class LevelSelectorActivity implements Screen {
         levelName.setText(levelDescriptor.getName());
         parScore.setText(String.valueOf(levelDescriptor.getParScore()));
         parTime.setText(String.valueOf(levelDescriptor.getParTime()));
+        Score levelScore = progressTracker.getScoreForLevel(levelDescriptor.getName());
+        if (levelScore == null) return;
+        highTime.setText(String.valueOf(levelScore.getTime()));
+        highScore.setText(String.valueOf(levelScore.getPoints()));
     }
 
     private void openLevel() {

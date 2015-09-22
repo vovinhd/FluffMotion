@@ -13,6 +13,14 @@ public class FluffMotion extends Game {
 	Texture img;
 	GameMode gameMode = new DefaultGameMode(this);
 
+	public FluffMotion() {
+	}
+
+	public FluffMotion(DeviceConfiguration... flags) {
+
+	}
+
+
 	@Override
 	public void create () {
 		setScreen(new LevelSelectorActivity(this, gameMode));
@@ -21,5 +29,9 @@ public class FluffMotion extends Game {
 	public void notifyLevelWon(GameMode gameMode, LevelDescriptor levelDescriptor) {
 		Gdx.app.log("LevelEvent", "You succeeded at winning the mission");
 		setScreen(new PostLevelActivity(levelDescriptor, gameMode, this));
+	}
+
+	public enum DeviceConfiguration {
+		NoTouchScreen
 	}
 }
